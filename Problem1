@@ -1,0 +1,22 @@
+def is_valid(s: str) -> bool:
+    stack = []  # use a list as stack to store opening brackets
+    mapping = {')': '(', '}': '{', ']': '['}  # create a mapping of opening and closing brackets
+
+    # iterate through each character in the string
+    for char in s:
+        # if the character is a closing bracket
+        if char in mapping:
+            # pop the top element from the stack if it exists, else use a dummy value '#'
+            top_element = stack.pop() if stack else '#'
+            # if the popped element doesn't match the corresponding opening bracket, return False
+            if mapping[char] != top_element:
+                return False
+        # if the character is an opening bracket, push it onto the stack
+        else:
+            stack.append(char)
+
+    # if there are any remaining opening brackets in the stack, return False, else return True
+    return not stack
+print(is_valid_parentheses("()")) # Output: True
+print(is_valid_parentheses("()[]{}")) # Output: True
+print(is_valid_parentheses("(]")) # Output: False
